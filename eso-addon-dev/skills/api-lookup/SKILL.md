@@ -75,6 +75,19 @@ grep -rn "ZO_Scene:New(" /path/to/esoui/clone
 grep -rn "SCENE_MANAGER:GetScene" /path/to/esoui/clone | head -30
 ```
 
+**"What's the current live (or PTS) APIVersion?"**
+The repo uses two long-lived branches: `live` and `pts`. Each branch's `README.md` declares the version, in the form `version X.Y.Z (API NNNNNN)`. Easiest path:
+```
+git -C /path/to/esoui/clone fetch origin live pts
+git -C /path/to/esoui/clone show origin/live:README.md | grep -E 'API [0-9]{6}'
+git -C /path/to/esoui/clone show origin/pts:README.md  | grep -E 'API [0-9]{6}'
+```
+Or fetch directly:
+- `https://raw.githubusercontent.com/esoui/esoui/live/README.md`
+- `https://raw.githubusercontent.com/esoui/esoui/pts/README.md`
+
+For an interactive lookup that also recommends the right `## APIVersion:` manifest line, use the `/eso-addon-dev:check-api-version` slash command.
+
 **"What's the right SecurePostHook target for X?"**
 Find ZO_*'s definition, look at the function name, hook that.
 ```

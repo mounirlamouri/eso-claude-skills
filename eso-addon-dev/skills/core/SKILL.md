@@ -49,6 +49,8 @@ Key directives:
 
 **APIVersion.** Bumped by ZOS every patch (e.g. `101049` → `101050`). Listing both old and new in `## APIVersion` lets your addon load on both for the transition period; once the next patch hits, drop the old version. Players see "out of date" warnings if your single listed version doesn't match. Keep the list short; don't accumulate years of old versions.
 
+To find the current live and PTS API versions on demand, run the slash command **`/eso-addon-dev:check-api-version`**. It looks up both numbers from the official `esoui/esoui` source mirror and recommends the right `## APIVersion:` line for your manifest.
+
 ## 2. Project layout
 
 Small addon (single feature, no settings):
