@@ -1,0 +1,14 @@
+{
+  "name": "eso-claude-skills",
+  "owner": {
+    "name": "Mounir Lamouri",
+    "email": "mounir@lamouri.fr"
+  },
+  "plugins": [
+    {
+      "name": "eso-addon-dev",
+      "source": "./eso-addon-dev",
+      "description": "Skills for writing Elder Scrolls Online addons in Lua and XML"
+    }
+  ]
+}

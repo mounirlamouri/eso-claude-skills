@@ -1,0 +1,10 @@
+{
+  "name": "eso-addon-dev",
+  "description": "Skills for writing Elder Scrolls Online (ESO) addons in Lua and XML — covers manifest format, project layout, SavedVariables design and migration, UI with LibAddonMenu, event handling and hook safety, inventory iteration, async patterns, library selection, and API lookup against the official esoui/esoui mirror.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Mounir Lamouri",
+    "email": "mounir@lamouri.fr"
+  },
+  "keywords": ["eso", "elder-scrolls-online", "addon", "lua"]
+}
