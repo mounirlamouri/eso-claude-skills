@@ -15,7 +15,7 @@ Every addon has a manifest with the same name as its folder. It's a simple direc
 ## Author: Me
 ## Version: 1.2.3
 ## AddOnVersion: 010203
-## APIVersion: 101049 101050
+## APIVersion: <LIVE> <PTS>   ← run /eso-addon-dev:check-api-version, do not invent these numbers
 ## Description: One-line summary that shows in the addon list.
 ## SavedVariables: MyAddon_AccountSavedVars
 ## DependsOn: LibAddonMenu-2.0>=41
@@ -38,7 +38,7 @@ Key directives:
 | `## Author` | Display author. |
 | `## Version` | Human-readable. |
 | `## AddOnVersion` | Numeric for compatibility checks (e.g. `010203` = 1.2.3). |
-| `## APIVersion` | Space-separated list of supported API versions. **Update on every patch** — see below. |
+| `## APIVersion` | Space-separated list of supported API versions. **Always run `/eso-addon-dev:check-api-version` to fill or update this** — see below. |
 | `## SavedVariables` | One or more global table names ESO will persist. See the `savedvars` skill. |
 | `## DependsOn` / `## OptionalDependsOn` / `## PCDependsOn` / `## ConsoleDependsOn` | Library and addon dependencies. See the `libraries` skill. |
 | `## IsLibrary: true` | Marks this addon as a library so the addon manager treats it as such. |
@@ -47,9 +47,25 @@ Key directives:
 
 **File loading.** Files are loaded in the order they appear. Constants and shared modules first; main code last. The `$(language)` macro expands to the user's language code (`en`, `de`, `fr`, …).
 
-**APIVersion.** Bumped by ZOS every patch (e.g. `101049` → `101050`). Listing both old and new in `## APIVersion` lets your addon load on both for the transition period; once the next patch hits, drop the old version. Players see "out of date" warnings if your single listed version doesn't match. Keep the list short; don't accumulate years of old versions.
+### APIVersion — always look up, never invent
 
-To find the current live and PTS API versions on demand, run the slash command **`/eso-addon-dev:check-api-version`**. It looks up both numbers from the official `esoui/esoui` source mirror and recommends the right `## APIVersion:` line for your manifest.
+ZOS bumps the API version every patch (roughly every 6 weeks). Whatever number you might recall from training data, prior conversations, or this skill's text is **almost certainly stale**. The only correct values come from a fresh lookup against the official `esoui/esoui` source mirror.
+
+**Whenever you create, modify, or review a `## APIVersion:` line, you must run `/eso-addon-dev:check-api-version` first.** This includes:
+
+- Generating a new addon manifest from scratch.
+- Updating an existing manifest for a patch refresh.
+- Reviewing a user's manifest and being asked whether the APIVersion is current.
+- Filling in any code example that contains a `## APIVersion:` line.
+
+**Do not** copy numeric APIVersion values from anywhere else: not from training data, not from this skill's prose, not from earlier turns of the conversation, not from a sibling addon you happen to have read. Each of those sources can be months out of date. The slash command is the only authoritative path.
+
+The command returns two numbers (current live, current PTS). Use them like this:
+
+- **Live and PTS match** (no transition in flight): `## APIVersion: <live>`
+- **PTS is ahead of live** (transition in flight): `## APIVersion: <live> <pts>` — covers both the current live build and the upcoming patch. Drop the older value once the new version hits live.
+
+Players see an "out of date" warning if none of the listed versions matches the running game. Keep the list short — don't accumulate historical versions.
 
 ## 2. Project layout
 
