@@ -45,6 +45,8 @@ Key directives:
 | `## DisableSavedVariablesAutoSaving: 1` | Stops ESO's automatic save; use only when managing saves manually (HarvestMap-style). See `savedvars`. |
 | `# `-prefixed lines | Comments. |
 
+**Manifest extension.** ESO accepts `MyAddon.txt` or `MyAddon.addon`. `.addon` is the current extension and the only one console reads; `.txt` still works on PC but is deprecated. Use `.addon` for anything that should run on console, keep PC-only addons on `.txt` (so they don't load under ForceConsoleFlow), and never ship both. See the `console` skill.
+
 **File loading.** Files are loaded in the order they appear. Constants and shared modules first; main code last. The `$(language)` macro expands to the user's language code (`en`, `de`, `fr`, …).
 
 ### APIVersion — always look up, never invent
@@ -95,7 +97,7 @@ MyAddon/
 
 Large addon (HarvestMap, FCOItemSaver, IIfA): organized into `src/` with subdirectories per concern (`src/Events/`, `src/Settings/`, `src/Pins/`, `src/BackupMigration/`, etc.). Adopt this once your single-file layout exceeds a few thousand lines.
 
-**Console support.** If you target the console client, split client-specific code into `PC/` and `console/` directories and gate via `## PCDependsOn` / `## ConsoleDependsOn`. LoreBooks is a clean example.
+**Console support.** If you target console (PS5 / Xbox Series), the manifest must be `MyAddon.addon`, not `.txt`. Put client-specific code in the special `PC/` and `Console/` folders and split dependencies with `## PCDependsOn` / `## ConsoleDependsOn`. LoreBooks is a clean example. The `console` skill covers the rest: gamepad-only UI, the shared memory and CPU budget, the SavedVariables quota, testing with ForceConsoleFlow, and publishing.
 
 ## 3. Initialization lifecycle
 
@@ -223,6 +225,7 @@ For a full localization deep-dive (gendered articles, plural rules) consult the 
 | Iterating bags? Identifying items reliably? | `inventory` |
 | Long-running work without freezing? Chunking? | `async` |
 | Which library should I depend on for X? | `libraries` |
+| Making the addon work on PS5 / Xbox? | `console` |
 | What's the exact signature/value of Y? | `api-lookup` |
 
 Each skill auto-loads when its description matches what you're doing; you can also invoke them explicitly as `/eso-addon-dev:<name>`.

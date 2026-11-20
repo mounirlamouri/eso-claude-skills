@@ -148,18 +148,17 @@ Common scene names: `"hud"`, `"hudui"`, `"inventory"`, `"bank"`, `"interact"`, `
 
 ## 6. Console vs PC split
 
-Some libraries (notably LibAddonMenu) don't load on the console client. The standard pattern is to declare two manifest dependency sections and split your code into `PC/` and `console/` folders:
+Console only loads the gamepad UI, so keyboard XML and LAM panels don't appear there. The standard pattern is to declare per-platform dependencies and put platform-specific files in the special `PC/` (or `Keyboard/`) and `Console/` folders. The game skips the folders that don't apply, so the manifest just lists everything:
 
 ```
 ## PCDependsOn: LibAddonMenu-2.0>=41
-## ConsoleDependsOn: ...
+## ConsoleDependsOn: LibHarvensAddonSettings
 
-PC/MyAddon.lua
-PC/Settings.lua
-console/MyAddon.lua
+PC/Settings.lua             -- LAM panel
+Console/Settings.lua        -- LibHarvensAddonSettings panel
 ```
 
-Then in your manifest list `IsConsoleUI() and "console/..." or "PC/..."` blocks separately. LoreBooks does this cleanly.
+For UI decisions at runtime, check `IsKeyboardUISupported()` rather than `IsConsoleUI()`. Recent LibAddonMenu builds can also auto-convert a simple panel to LHAS on console. The `console` skill covers both routes, the gamepad-UI constraints and the full porting checklist.
 
 If you don't care about console support, ignore this entirely.
 

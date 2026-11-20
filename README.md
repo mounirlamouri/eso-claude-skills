@@ -4,7 +4,7 @@ A Claude Code plugin that bundles skills for writing **Elder Scrolls Online (ESO
 
 ## What's inside
 
-A single plugin, `eso-addon-dev`, containing 8 skills:
+A single plugin, `eso-addon-dev`, containing 9 skills:
 
 | Skill | Loads when you're… |
 |---|---|
@@ -14,6 +14,7 @@ A single plugin, `eso-addon-dev`, containing 8 skills:
 | `events-and-hooks` | Registering events, choosing `ZO_PreHook` vs `SecurePostHook`, avoiding taint. |
 | `inventory` | Iterating bags, identifying items reliably across patches, handling cross-bag/cross-character data. |
 | `async` | Writing non-blocking work — chunking, frame-budget discipline, choosing among `LibAsync` / `RegisterForUpdate` / `zo_callLater`. |
+| `console` | Porting to or targeting PS5 / Xbox Series — `.addon` manifest, PC/Console folders, gamepad UI, the shared memory/CPU budget, SavedVariables quota, ForceConsoleFlow testing, Bethesda.net publishing. |
 | `libraries` | Picking dependencies — decision guide for the common `Lib*` packages. |
 | `api-lookup` | Looking up exact function signatures, event constants, scenes, fragments — points Claude at a local clone of `github.com/esoui/esoui`. |
 
@@ -66,6 +67,7 @@ These are useful if you're a human reading docs, but the skills don't and should
 - [ESOUI Wiki: API](https://wiki.esoui.com/API), [Events](https://wiki.esoui.com/Events), [Globals](https://wiki.esoui.com/Globals), [Constant_Values](https://wiki.esoui.com/Constant_Values).
 - [APIVersion history](https://wiki.esoui.com/APIVersion) — what's in each patch.
 - [ESOUI forums: Tutorials & Other Helpful Info](https://www.esoui.com/forums/forumdisplay.php?f=172) — Dan Batson's per-patch API dumps live here.
+- [How to update your addon for console](https://wiki.esoui.com/How_to_update_your_addon_for_console) and [Console AddOns -> Search & Upload @Bethesda.net](https://www.esoui.com/forums/showthread.php?t=11220) — the community references the `console` skill was distilled from.
 - [github.com/esoui/esoui](https://github.com/esoui/esoui) — the official UI Lua source mirror, refreshed per patch. **This is what `api-lookup` skill points at.**
 
 ## Source addons

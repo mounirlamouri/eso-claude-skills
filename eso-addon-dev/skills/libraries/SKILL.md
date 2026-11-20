@@ -32,7 +32,7 @@ This skill is a decision guide. For each library: **what problem it solves, when
 
 ## 2. Per-library notes
 
-**LibAddonMenu-2.0** — Almost universal for settings UI. See the `ui` skill for control vocabulary. Does **not** load on the console client; gate with `## PCDependsOn` if you support both. Version constraint: pick something modern (`>=41` is current as of 2026).
+**LibAddonMenu-2.0** — Almost universal for settings UI. See the `ui` skill for control vocabulary. Console has no keyboard UI. Recent builds (r43+) ship a `.addon` manifest and auto-convert simple panels to LibHarvensAddonSettings there, though `custom`, `texture` and `iconpicker` controls are dropped. Most cross-platform addons declare LAM in `## PCDependsOn` and **LibHarvensAddonSettings** in `## ConsoleDependsOn`. On console, **LibConsoleDialogs** stands in for LibCustomMenu and **LibRadialMenu** for custom keybinds. See the `console` skill. Version constraint: pick something modern (`>=41` is current as of 2026).
 
 **LibCustomMenu** — Adds custom items to the right-click context menu on inventory slots, chat names, etc. Easier than building your own and it handles taint correctly. Don't try to do this with raw `ZO_PreHook` — use this lib.
 
@@ -77,8 +77,8 @@ Three flavors. Pick by what happens if the dep is missing:
 |---|---|
 | `## DependsOn:` | Required. Addon won't load if missing. |
 | `## OptionalDependsOn:` | Loaded *before* your addon if present, but not required. Your code must check. |
-| `## PCDependsOn:` | PC-only required dep. Use for LibAddonMenu and other libs that don't ship on console. |
-| `## ConsoleDependsOn:` | Console-only required dep. |
+| `## PCDependsOn:` | PC-only required dep. Use for LibAddonMenu and other keyboard-UI libs. |
+| `## ConsoleDependsOn:` | Console-only required dep (e.g. LibHarvensAddonSettings). Console doesn't load libraries embedded in your folder, so every console library must be declared here or in `DependsOn`. |
 
 Version constraints with `>=`:
 

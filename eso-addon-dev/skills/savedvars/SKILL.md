@@ -92,6 +92,8 @@ For this to work:
 - Don't use Lua features that are hard to parse — stick to simple nested tables of scalars.
 - Document your file format somewhere your users (and your tool) can find it.
 
+**PC only.** Console players can't reach their SavedVariables files (Xbox keeps them in cloud storage), so this pattern can't work there. Console also has a shared SavedVariables disk quota, and saves fail once it's full, which makes the size techniques in §6 mandatory rather than optional. See the `console` skill.
+
 ## 8. What NOT to persist
 
 - **Function references.** ZOS will silently drop them, then your addon crashes when it tries to call a nil.
